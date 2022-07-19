@@ -47,9 +47,29 @@ Next, a correlation heatmap in Figure 2 shows that *est_diameter_min* and *est_d
 ![](./images/fig2.png)
 _Figure 2_
 
-<details><summary markdown="span">Let's see some code!</summary>
+Next, I was curious about the year that is included in the names of each asteroid. I decided to extract the year from the *name* variable to see if there is any pattern with the year the asteroid was discovered.
+
+<details><summary markdown="span">Click HERE to see my code for extracting the year from the name</summary>
 ```python
-print('Hello World!')
+df[['drop','work']]=df.name.str.split('(',expand=True)
+df.drop(columns='drop',inplace=True)
+
+def year_extract(x):
+    return x.strip()[0:x.strip().index(' ')]
+df['year']=df['work'].apply(year_extract)
+
+df.drop(columns='work', inplace=True)
+  
+# Change abnormal years to the correct year (based on NASA website)
+df.loc[df.year=='A911','year']='1911' 
+df.loc[df.year=='6743','year']='1960'
+df.loc[df.year=='A898','year']='1898'
+df.loc[df.year=='6344','year']='1960'
+df.loc[df.year=='A924','year']='1924'
+df.loc[df.year=='A/2019','year']='2019'
+df.loc[df.year=='4788','year']='1960'
+  
+df.year=df.year.astype(int)
 ```
 </details>
 <br/>
