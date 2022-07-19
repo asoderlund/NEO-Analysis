@@ -45,11 +45,12 @@ _Figure 1_
 Next, a correlation heatmap in Figure 2 shows that *est_diameter_min* and *est_diameter_max* are perfectly correlated. This means we only need to keep one of these variables, so we will drop *est_diameter_min*.
 
 ![](./images/fig2.png)
+
 _Figure 2_
 
 Next, I was curious about the year that is included in the names of each asteroid. I decided to extract the year from the *name* variable to see if there is any pattern with the year the asteroid was discovered.
 
-<details><summary markdown="span">**Click Here** to see my code for extracting the year from the name</summary>
+<details><summary markdown="span">**Click Here** to see my code for extracting the year from the name.</summary>
 ```python
 df[['drop','temp']]=df.name.str.split('(',expand=True)
 df.drop(columns='drop',inplace=True)
@@ -78,6 +79,7 @@ To see if there is any pattern, I created boxplots for hazardous and non-hazardo
 Possible reasons why hazardous objects were not discovered until more recently could be that hazardous asteroids tend to be farther away (as we will discover from figure 6), and it is possible that older equipment could not detect asteroids that are further away from earth as well. Another possible reason is that hazardous objects tend to have a lower absolute magnitude (also infered from figure 6), or luminosity, making them even harder to detect with older equipment.
 
 ![](./images/fig3.png)
+
 _Figure 3_
 
 
