@@ -23,8 +23,6 @@ The attributes of this dataset are:
 
 ## Exploratory Data Analysis and Pre-processing
 
-{::options parse_block_html="true" /}
-
 <details><summary markdown="span">Let's see some code!</summary>
 ```python
 print('Hello World!')
@@ -32,8 +30,6 @@ print('Hello World!')
 Of course, it has to be Hello World, right?
 </details>
 <br/>
-
-{::options parse_block_html="false" /}
 
 
 ## Univariate and Bivariate Analysis
