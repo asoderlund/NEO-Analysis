@@ -73,6 +73,13 @@ df.year=df.year.astype(int)
 </details>
 <br/>
 
+To see if there is any pattern, I created boxplots for hazardous and non-hazardous asteroids based on the year. Based on the boxplots, hazardous objects were mostly discovered between around 2002 to before 2020. There were many non-hazardous objects discovered pre-1980s. 
+
+Possible reasons why hazardous objects were not discovered until more recently could be that hazardous asteroids tend to be farther away (as we will discover from figure 6), and it is possible that older equipment could not detect asteroids that are further away from earth as well. Another possible reason is that hazardous objects tend to have a lower absolute magnitude (also infered from figure 6), or luminosity, making them even harder to detect with older equipment.
+
+![](./images/fig3.png)
+_Figure 3_
+
 
 ## Univariate and Bivariate Analysis
 
