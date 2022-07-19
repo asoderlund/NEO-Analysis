@@ -22,12 +22,22 @@ The attributes of this dataset are:
 - hazardous: whether the asteriod is potentially harmful or not
 
 ## Exploratory Data Analysis and Pre-processing
+This dataset has 10 columns and 90836 rows. Peaking at the first 10 rows of data reveals what the data looks like:
+
+![](./images/table1.png)
+
+A cursory examination of the dataset shows that orbiting_body and sentry_object each only have 1 unique value, so they are dropped from the table.
+
+We also see that id and name each only have 27423 unique values. This means that the same asteroid is measured multiple times. Lets take a look at one of these asteroids to see what changes with each record:
+
+
+
+
 
 <details><summary markdown="span">Let's see some code!</summary>
 ```python
 print('Hello World!')
 ```
-Of course, it has to be Hello World, right?
 </details>
 <br/>
 
