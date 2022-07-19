@@ -23,17 +23,17 @@ The attributes of this dataset are:
 
 ## Exploratory Data Analysis and Pre-processing
 
-<details><summary>CLICK ME</summary>
-<p>
+{::options parse_block_html="true" /}
 
-#### We can hide anything, even code!
-
+<details><summary markdown="span">Let's see some code!</summary>
 ```python
-   len(df)
+print('Hello World!')
 ```
-
-</p>
+Of course, it has to be Hello World, right?
 </details>
+<br/>
+
+{::options parse_block_html="false" /}
 
 
 ## Univariate and Bivariate Analysis
