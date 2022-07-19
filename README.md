@@ -49,16 +49,16 @@ _Figure 2_
 
 Next, I was curious about the year that is included in the names of each asteroid. I decided to extract the year from the *name* variable to see if there is any pattern with the year the asteroid was discovered.
 
-<details><summary markdown="span">Click HERE to see my code for extracting the year from the name</summary>
+<details><summary markdown="span">**Click Here** to see my code for extracting the year from the name</summary>
 ```python
-df[['drop','work']]=df.name.str.split('(',expand=True)
+df[['drop','temp']]=df.name.str.split('(',expand=True)
 df.drop(columns='drop',inplace=True)
 
-def year_extract(x):
+def get_year(x):
     return x.strip()[0:x.strip().index(' ')]
-df['year']=df['work'].apply(year_extract)
+df['year']=df['temp'].apply(get_year)
 
-df.drop(columns='work', inplace=True)
+df.drop(columns='temp', inplace=True)
 
 df.loc[df.year=='A911','year']='1911' 
 df.loc[df.year=='6743','year']='1960'
@@ -82,6 +82,7 @@ _Figure 3_
 
 
 ## Univariate and Bivariate Analysis
+To perform univariate and bivariate analysis, I began by extracting the numerical columns, not including id. 
 
 
 ## Model Building
