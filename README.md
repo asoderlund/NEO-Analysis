@@ -59,8 +59,7 @@ def year_extract(x):
 df['year']=df['work'].apply(year_extract)
 
 df.drop(columns='work', inplace=True)
-  
-# Change abnormal years to the correct year (based on NASA website)
+
 df.loc[df.year=='A911','year']='1911' 
 df.loc[df.year=='6743','year']='1960'
 df.loc[df.year=='A898','year']='1898'
