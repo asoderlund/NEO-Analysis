@@ -223,9 +223,56 @@ auc_KNN = roc_curve_plot(y_test, y_scores_KNN, 'kNN')
 ```
 </details>
 <br/>
-### Random Forest Decision Tree Classification
+### Random Forest Classification
 
+For the next model, I decided to try Random Forest to improve on the decision tree model. I knew this would perform better than the basic decision tree. Random Forest ended up having the best AUC, Accuracy, and F1 scores out of all the models I created.
+
+Hyperparameter tuning using GridSearch showed that the default settings were sufficient, although recall can be improved slightly by using *max_depth=16* and *n_estimators= 256* for the models parameters. I decided to keep the default parameters to improve all other metrics. The accuracy for this model, shown in table 5, is close to 93%. This is the best accuracy I was able to get from any of the models. The AUC is also very high for this model, as shown in figure 10.
+
+![](./images/RFTable.png)
+
+_Table 5_
+
+![](./images/RFRoc.png)
+
+_Figure 10_
+
+Finally, I wanted to see the variable importance plot for random forest, shown in figure 11. I found it very interesting that all the variables are very close to each other in importance. The diameter and miss distance variables are still both the most important, but relative velocity and absolute magnitude are still very important compared to the basic decision tree. 
+
+![](./images/RFVars.png)
+
+_Figure 11_
+
+<details><summary markdown="span">**Click Here** to see my code for Random Forest and related plots.</summary>
+```python
+
+```
+</details>
+<br/>
 
 ### Gradient Boosted Decision Tree Classification
+
+The last model I chose to create is a gradient boosted decision tree from the Extreme Gradient Boosted Classifier model from the XGBoost library. This method has gained a lot of popularity through its performance in Kaggle competitions, so I wanted to see how it would perform on this dataset. 
+
+Overall, the gradient boosted decision tree performed nearly as well as the random forest. 
+
+![](./images/XGBTable.png)
+
+_Table 6_
+
+![](./images/XGBRoc.png)
+
+_Figure 12_
+
+![](./images/XGBVars.png)
+
+_Figure 13_
+
+<details><summary markdown="span">**Click Here** to see my code for Gradient Boosted Decision Tree and related plots.</summary>
+```python
+
+```
+</details>
+<br/>
 
 # Final Results and Final Remarks
