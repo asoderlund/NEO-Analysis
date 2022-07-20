@@ -252,9 +252,9 @@ _Figure 11_
 
 ### Gradient Boosted Decision Tree Classification
 
-The last model I chose to create is a gradient boosted decision tree from the Extreme Gradient Boosted Classifier model from the XGBoost library. This method has gained a lot of popularity through its performance in Kaggle competitions, so I wanted to see how it would perform on this dataset. 
+The last model I chose to create is a gradient boosted decision tree from the Extreme Gradient Boosted Classifier model from the XGBoost library. This method has gained a lot of popularity through its performance in Kaggle competitions, so I wanted to see how it would perform on this dataset. The gradient boosted machine did not need hyperparameter tuning in this case. 
 
-Overall, the gradient boosted decision tree performed nearly as well as the random forest. 
+Overall, the gradient boosted decision tree performed nearly as well as the random forest. All of the metrics from table 6 are just slightly less than those for the random forest model, with the exception of recall. The gradient boosted classifier outperformed the random forest model in recall by a little bit. However, because we know recall is an important metric in this specific case due to the consequences of a false negative, the decision maker may prefer to sacrifice accuracy and precision a little bit to improve recall.
 
 ![](./images/XGBTable.png)
 
@@ -264,15 +264,32 @@ _Table 6_
 
 _Figure 12_
 
+The variable importance plot for the gradient boosted machine is very interesting. It is almost opposite of the variable importance plot for random forest. It values the diameter variable the most, just like in the other plots, but all other variables are much less important. It does not even appear to use the absolute magnitude at all. It is interesting how different this variable importance plot is compared to random forest, considering how similarly the two models performed.
+
 ![](./images/XGBVars.png)
 
 _Figure 13_
 
 <details><summary markdown="span">**Click Here** to see my code for Gradient Boosted Decision Tree and related plots.</summary>
 ```python
-
+XGB = XGBClassifier()
+XGB.fit(X_train_scaled, y_train)
+XGB_pred = XGB.predict(X_test_scaled)
+Acc_XGB = round(accuracy_score(XGB_pred, y_test),4)
+xgprec_XGB, xgrec_XGB, xgf_XGB, support_XGB = score(y_test, XGB_pred)
+precision_XGB, recall_XGB, f1_XGB = round(xgprec_XGB[0], 4), round(xgrec_XGB[0],4), round(xgf_XGB[0],4)
+scores_XGB = pd.DataFrame({
+    'Metric': ['Accuracy', 'Precision', 'Recall', 'F1'],
+    'Score': [Acc_XGB, precision_XGB, recall_XGB, f1_XGB]})
+scores_XGB
+    
+y_scores_XGB = XGB.predict_proba(X_test_scaled)
+auc_XGB = roc_curve_plot(y_test, y_scores_XGB, 'Gradient Boosted Decision Tree')
+    
+feat_importances_XGB = pd.Series(XGB.feature_importances_, index=X.columns)
+feat_importances_XGB.plot(kind='barh', title = 'Variable Importance for Gradient Boosted Tree', figsize=[7,5])
 ```
 </details>
 <br/>
 
-# Final Results and Final Remarks
+# Final Results and Remarks
