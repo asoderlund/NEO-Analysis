@@ -223,6 +223,7 @@ auc_KNN = roc_curve_plot(y_test, y_scores_KNN, 'kNN')
 ```
 </details>
 <br/>
+
 ### Random Forest Classification
 
 For the next model, I decided to try Random Forest to improve on the decision tree model. I knew this would perform better than the basic decision tree. Random Forest ended up having the best AUC, Accuracy, and F1 scores out of all the models I created.
