@@ -73,7 +73,6 @@ df.year=df.year.astype(int)
 ```
 </details>
 <br/>
-
 To see if there is any pattern, I created boxplots for hazardous and non-hazardous asteroids based on the year. Based on the boxplots in figure 3, hazardous objects were mostly discovered between around 2002 to before 2020. There were many non-hazardous objects discovered pre-1980s. 
 
 Possible reasons why hazardous objects were not discovered until more recently could be that hazardous asteroids tend to be farther away (as we will discover from figure 5), and it is possible that older equipment could not detect asteroids that are further away from earth as well. Another possible reason is that hazardous objects tend to have a lower absolute magnitude (also infered from figure 5), or luminosity, making them even harder to detect with older equipment.
@@ -102,9 +101,12 @@ _Figure 5_
 
 ## Model Building
 
-I chose to create classification models to predict whether or not an asteroid is considered hazardous. To compare models, I included accuracy, precision, recall, f1, and AUC scores. I chose to include all of these metrics because certain models performed better for some of these metrics and worse for others.
+I chose to create classification models to predict whether or not an asteroid is considered hazardous. To compare models, I included accuracy, precision, recall, f1, and AUC scores. I chose to include all of these metrics because certain models performed better for some of these metrics and worse for others. In this case, recall is going to be more important than precision (or even accuracy, to a degree) because mis-classifying a dangerous asteroid as non-hazardous is a much more costly mistake that mis-classifying a non-hazardous asteroid. So, if a model performs better in recall and worse for other metrics, it may be something to take into account.
 
 ### More Pre-Processing
+
+Before building any models, I performed a test/train split, with 80% of the data going to the test set. I stratified y (the *hazardous* variable) to account for the class imbalance. I did not include *name* or *id* in the X values because they were not useful. I decided to keep both *estimated_diameter_max* and *absolute_magnitude*, because most of the metrics were improved by including both variables. However, if we were trying to optimize recall only, it would help with certain models to only use one of these variables. 
+
 
 
 ### Basic Decision Tree Classification
