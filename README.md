@@ -107,6 +107,17 @@ I chose to create classification models to predict whether or not an asteroid is
 
 Before building any models, I performed a test/train split, with 80% of the data going to the test set. I stratified y (the *hazardous* variable) to account for the class imbalance. I did not include *name* or *id* in the X values because they were not useful. I decided to keep both *estimated_diameter_max* and *absolute_magnitude*, because most of the metrics were improved by including both variables. However, if we were trying to optimize recall only, it would help with certain models to only use one of these variables. 
 
+Next, I transformed my X variables using StandardScaler from the SKLearn library. This was necessary mostly for k-nearest neighbors classification, as it uses euclidian distance and the magnitudes of the X variables were all very different. 
+
+Finally, I created a function for plotting a ROC curve for each of the classification models. This helped to reduce redundant code. 
+
+<details><summary markdown="span">**Click Here** to see my code for pre-processing the data before classification.</summary>
+```python
+
+```
+</details>
+<br/>
+
 
 
 ### Basic Decision Tree Classification
