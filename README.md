@@ -177,10 +177,52 @@ feat_importances.plot(kind='barh')
 ```
 </details>
 <br/>
-
 ### K Nearest Neighbors Classification
 
+Next I wanted to try K Nearest Neighbors because I wanted a model that was not tree-based, and I figured clustering makes sense because intuitively, you would expect asteroids that are similar to have the same classification. I was surprised by how well it performed. I used the elbow method to choose k, and based on figure 8 I chose k=15. 
 
+![](./images/KNNError.png)
+
+_Figure 8_
+
+K Nearest Neighbors performed much better than the decision tree, but an accuracy of 91% still is not quite as high as we would like, considering the importance of classifying asteroids correctly. The recall is fairly high which is especially important. Overall, this model is good, but not up to NASA standards.
+
+![](./images/KNNTable.png)
+
+_Table 4_
+
+![](./images/KNNRoc.png)
+
+_Figure 9_
+
+<details><summary markdown="span">**Click Here** to see my code for K Nearest Neighbors and related plots.</summary>
+```python
+error_rates = []
+for i in np.arange(1, 40):
+    model = KNeighborsClassifier(n_neighbors = i)
+    model.fit(X_train_scaled, y_train)
+    predictions = model.predict(X_test_scaled)
+    error_rates.append(np.mean(predictions != y_test))
+
+plt.rcParams['figure.figsize']=[15,12]
+plt.plot(error_rates)
+    
+KNN = KNeighborsClassifier(n_neighbors = 15)
+KNN.fit(X_train_scaled, y_train)
+KNN_pred = KNN.predict(X_test_scaled)
+Acc_KNN = round(accuracy_score(KNN_pred, y_test), 4)
+xgprec_KNN, xgrec_KNN, xgf_KNN, support_KNN = score(y_test, KNN_pred)
+precision_KNN, recall_KNN, f1_KNN = round(xgprec_KNN[0], 4), round(xgrec_KNN[0],4), round(xgf_KNN[0],4)
+scores_KNN = pd.DataFrame({
+    'Metric': ['Accuracy', 'Precision', 'Recall', 'F1'],
+    'Score': [Acc_KNN, precision_KNN, recall_KNN, f1_KNN]})
+scores_KNN
+    
+y_scores_KNN = KNN.predict_proba(X_test_scaled)
+auc_KNN = roc_curve_plot(y_test, y_scores_KNN, 'kNN')
+```
+</details>
+<br/>
 ### Random Forest Decision Tree Classification
 
 
