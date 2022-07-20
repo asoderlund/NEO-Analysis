@@ -295,4 +295,7 @@ feat_importances_XGB.plot(kind='barh', title = 'Variable Importance for Gradient
 
 # Final Results and Remarks
 
-
+Overall, it is clear that the random forest model performed the best
+Random forest was not the best in recall and precision
+Gradient boosted decision tree was a close second
+If recall is most important, may be better to use XGB, but difference between XGB and rf is minimal
