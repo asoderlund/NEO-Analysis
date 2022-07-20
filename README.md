@@ -74,9 +74,9 @@ df.year=df.year.astype(int)
 </details>
 <br/>
 
-To see if there is any pattern, I created boxplots for hazardous and non-hazardous asteroids based on the year. Based on the boxplots, hazardous objects were mostly discovered between around 2002 to before 2020. There were many non-hazardous objects discovered pre-1980s. 
+To see if there is any pattern, I created boxplots for hazardous and non-hazardous asteroids based on the year. Based on the boxplots in figure 3, hazardous objects were mostly discovered between around 2002 to before 2020. There were many non-hazardous objects discovered pre-1980s. 
 
-Possible reasons why hazardous objects were not discovered until more recently could be that hazardous asteroids tend to be farther away (as we will discover from figure 6), and it is possible that older equipment could not detect asteroids that are further away from earth as well. Another possible reason is that hazardous objects tend to have a lower absolute magnitude (also infered from figure 6), or luminosity, making them even harder to detect with older equipment.
+Possible reasons why hazardous objects were not discovered until more recently could be that hazardous asteroids tend to be farther away (as we will discover from figure 5), and it is possible that older equipment could not detect asteroids that are further away from earth as well. Another possible reason is that hazardous objects tend to have a lower absolute magnitude (also infered from figure 5), or luminosity, making them even harder to detect with older equipment.
 
 ![](./images/fig3.png)
 
@@ -86,8 +86,23 @@ _Figure 3_
 ## Univariate and Bivariate Analysis
 To perform univariate and bivariate analysis, I began by extracting the numerical columns, not including id. 
 
+First I checked the distribution of the variables, showwn in figure 4. First, notice that the distribution for estimated maximum diameter is highly positively skewed with sharp spike on the left, indicating the presence of outliers. Relative velocity has a positive skew, so most asteroids are moving more slowly. The distance from earth, *miss_distance*, seems to be relatively uniform throughout the data, with a bit of a spike at 0. Finally, we see that most observations of asteroids were recorded after 1990, so data from before 1990 might not be as useful.
+
+![](./images/fig4.png)
+
+_Figure 4_
+
+For bivariate analysis, I started with a pairs plot that is colored by *hazardous* classification (figure 5). There are a lot of interesting patterns revealed by these plots. 
+
+First, the distributions along the diagonal are interesting because they add more information to our univariate analysis concerning the classification of asteroids as hazardous. From the relative velocity distribution, it seems that hazardous asteroids move slightly faster than non-hazardous ones. From the distributions of *miss_distance* and *absolute_magnitude*, we see that hazardous asteroids actually tend to be further away from earth, which is counter-intuitive. There is also a very clear correlation between *est_diameter_max* and *absolute_magnitude*, so it may be beneficial to only include one of these variables for certain models.
+
+![](./images/fig5.png)
+
+_Figure 5_
 
 ## Model Building
+
+I chose to create classification models to predict whether or not an asteroid is considered hazardous. To compare models, I included accuracy, precision, recall, f1, and AUC scores. I chose to include all of these metrics because certain models performed better for some of these metrics and worse for others.
 
 ### More Pre-Processing
 
