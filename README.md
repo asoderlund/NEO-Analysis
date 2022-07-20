@@ -2,10 +2,10 @@
 
 This is a simple exploration, analysis, and model building project I created in Python 3. 
 
-See a project I created in R here: ([Wine Analysis Project](https://asoderlund.github.io/WineAnalysis/)).
+See a project I created in R here: [Wine Analysis Project](https://asoderlund.github.io/WineAnalysis/).
 
 ## The Dataset
-The dataset comes from the NASA Open API and NEO Earth Close Approaches. It can be found on Kaggle here: ([Data](https://www.kaggle.com/datasets/sameepvani/nasa-nearest-earth-objects)). I am using version 2 of this dataset.
+The dataset comes from the NASA Open API and NEO Earth Close Approaches. It can be found on Kaggle here: [Data](https://www.kaggle.com/datasets/sameepvani/nasa-nearest-earth-objects). I am using version 2 of this dataset.
 
 This dataset contains information about asteroids orbiting earth. It is important to understand objects close to earth, as they can impact the earth in many ways and distrupt the earths natural phenomena. Information about the size, velocity, distance from earths orbit, and the magnitude of the luminosity of the asteroid can help experts identify whether an asteroid poses a threat or not. This project will analyze information about these asteroids, and attempt to create a model to predict whether or not an asteroid is potentially hazardous.
 
@@ -137,10 +137,46 @@ def roc_curve_plot(y_test, y_scores, method):
 </details>
 <br/>
 
-
-
 ### Basic Decision Tree Classification
+I knew the basic decision tree classifier would not be the most accurate, however I thought it would be a good starting point to compare our other models against. It is also a good way to get a basic idea of how important each variable is to the decision tree, and to compare an importance plot to our other tree methods. 
 
+The decision tree ended up being too large to be especially helpful. The models scores are shown in table 3 below. I also plotted the ROC curve for the model, which shows that it is a decent model compared to a random model, but certainly not good enough for predicting hazardous asteroids.
+
+![](./images/DTTable.png)
+
+_Table 3_
+
+![](./images/DTRoc.png)
+
+_Figure 6_
+
+I plotted the variable importance for all of the tree-based models. The importance for each variable is shown in figure 7. This decision tree model mainly uses the diameter to classify the objects, which is interesting because the diameter does not vary much between asteroids. The variables *miss_distance* and *relative_velocity* are also important variables in this tree, which makes sense with the correlations we saw in figure 5 between those two variables and the hazardous classification.
+
+![](./images/DTVars.png)
+
+_Figure 7_
+
+<details><summary markdown="span">**Click Here** to see my code for the Decision Tree and related plots.</summary>
+```python
+DT = DecisionTreeClassifier()
+tree = DT.fit(X_train_scaled, y_train)
+DT_pred = DT.predict(X_test_scaled)
+Acc_DT = round(accuracy_score(DT_pred, y_test), 4)
+xgprec_DT, xgrec_DT, xgf_DT, support_DT = score(y_test, DT_pred)
+precision_DT, recall_DT, f1_DT = round(xgprec_DT[0], 4), round(xgrec_DT[0],4), round(xgf_DT[0],4)
+scores_DT = pd.DataFrame({
+    'Metric': ['Accuracy', 'Precision', 'Recall', 'F1'],
+    'Score': [Acc_DT, precision_DT, recall_DT, f1_DT]})
+scores_DT
+    
+y_scores_DT = DT.predict_proba(X_test_scaled)
+auc_DT = roc_curve_plot(y_test, y_scores_DT, 'Decision Tree')
+    
+feat_importances = pd.Series(DT.feature_importances_, index=X.columns)
+feat_importances.plot(kind='barh')
+```
+</details>
+<br/>
 
 ### K Nearest Neighbors Classification
 
