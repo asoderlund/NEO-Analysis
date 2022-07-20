@@ -113,7 +113,26 @@ Finally, I created a function for plotting a ROC curve for each of the classific
 
 <details><summary markdown="span">**Click Here** to see my code for pre-processing the data before classification.</summary>
 ```python
-
+X = df.drop(["id","name","hazardous"], axis=1)
+y = df.hazardous.astype(int)
+    
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.2, random_state = 0, stratify=y)
+    
+sc=StandardScaler()
+X_train_scaled=pd.DataFrame(sc.fit_transform(X_train))
+X_test_scaled=pd.DataFrame(sc.transform(X_test))
+    
+def roc_curve_plot(y_test, y_scores, method):
+    fpr, tpr, threshold = roc_curve(y_test, y_scores[:, 1])
+    roc_auc = auc(fpr, tpr)
+    plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
+    plt.legend()
+    plt.plot([0, 1], [0, 1],'r--')
+    plt.ylabel('True Positive Rate')
+    plt.xlabel('False Positive Rate')
+    plt.title('ROC Curve of ' + method)
+    plt.show()
+    return roc_auc
 ```
 </details>
 <br/>
