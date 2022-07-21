@@ -25,6 +25,7 @@ The attributes of this dataset are:
 This dataset has 10 columns and 90,836 rows. It has no missing values. Peeking at the first 10 rows of data reveals what the data looks like:
 
 ![](./images/table1.png)
+
 _Table 1_
 
 
@@ -33,6 +34,7 @@ A cursory examination of the dataset shows that *orbiting_body* and *sentry_obje
 We also see that id and name each only have 27423 unique values. This means that the same asteroid is measured multiple times. Let's take a look at one of these asteroids to see what changes with each record:
 
 ![](./images/table2.png)
+
 _Table 2_
 
 Looking at Table 2, it appears that *relative_velocity* and *miss_distance* change with each observation of the same asteroid. A large majority of the time, the classification of *hazardous* does not change with each observation.
@@ -40,6 +42,7 @@ Looking at Table 2, it appears that *relative_velocity* and *miss_distance* chan
 We would assume intuitively that most of these asteroids are not hazardous, because if most asteroids were hazardous we would probably have a lot more collisions with them! The imbalance is not too extreme though- about 9.7% of objects are classified as hazardous. This can be handled with a stratified train-test split later on.
 
 ![](./images/fig1.png)
+
 _Figure 1_
 
 Next, a correlation heatmap in Figure 2 shows that *est_diameter_min* and *est_diameter_max* are perfectly correlated. This means we only need to keep one of these variables, so we will drop *est_diameter_min*.
@@ -131,6 +134,7 @@ def roc_curve_plot(y_test, y_scores, method):
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
     plt.title('ROC Curve of ' + method)
+    plt.rcParams['figure.figsize']=[6,5]
     plt.show()
     return roc_auc
 ```
