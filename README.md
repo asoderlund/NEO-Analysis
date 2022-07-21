@@ -102,6 +102,26 @@ First, the distributions along the diagonal are interesting because they add mor
 
 _Figure 5_
 
+<details><summary markdown="span">**Click Here** to see my code for univariate and bivariate analysis.</summary>
+```python
+num_cols = ["est_diameter_max", "relative_velocity", "miss_distance", "absolute_magnitude","year"]
+
+rows=2
+cols=3
+count=1
+plt.rcParams['figure.figsize']=[15,9]
+for i in num_cols:
+    plt.subplot(rows,cols,count)
+    sns.distplot(df[i], color='c')
+    count+=1
+plt.suptitle('Distributions of Numerical Variables')
+plt.show()
+
+sns.pairplot(df[num_cols+['hazardous']],hue = 'hazardous')
+```
+</details>
+<br/>
+
 ## Model Building
 
 I chose to create classification models to predict whether or not an asteroid is considered hazardous. To compare models, I included accuracy, precision, recall, f1, and AUC scores. I chose to include all of these metrics because certain models performed better for some of these metrics and worse for others. In this case, recall is going to be more important than precision (or even accuracy, to a degree) because mis-classifying a dangerous asteroid as non-hazardous is a much more costly mistake that mis-classifying a non-hazardous asteroid. So, if a model performs better in recall and worse for other metrics, it may be something to take into account.
