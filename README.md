@@ -177,7 +177,7 @@ y_scores_DT = DT.predict_proba(X_test_scaled)
 auc_DT = roc_curve_plot(y_test, y_scores_DT, 'Decision Tree')
     
 feat_importances = pd.Series(DT.feature_importances_, index=X.columns)
-feat_importances.plot(kind='barh')
+feat_importances.plot(kind='barh', title='Variable Importance for Decision Tree',figsize=[5,3])
 ```
 </details>
 <br/>
@@ -208,7 +208,8 @@ for i in np.arange(1, 40):
     predictions = model.predict(X_test_scaled)
     error_rates.append(np.mean(predictions != y_test))
 
-plt.rcParams['figure.figsize']=[15,12]
+plt.rcParams['figure.figsize']=[6,4]
+plt.suptitle('Error Rates for k from 1 to 40')
 plt.plot(error_rates)
     
 KNN = KNeighborsClassifier(n_neighbors = 15)
@@ -250,7 +251,31 @@ _Figure 11_
 
 <details><summary markdown="span">**Click Here** to see my code for Random Forest and related plots.</summary>
 ```python
+max_depth=[2, 8, 16]
+n_estimators = [64, 128, 256]
+param_grid = dict(max_depth=max_depth, n_estimators=n_estimators)
+dfrst = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth)
+grid = GridSearchCV(estimator=dfrst, param_grid=param_grid, cv = 5)
+grid_results = grid.fit(X_train_scaled, y_train)
 
+print("Best: {0}, using {1}".format(grid_results.cv_results_['mean_test_score'], grid_results.best_params_))
+    
+RF = RandomForestClassifier()
+RF.fit(X_train_scaled, y_train)
+RF_pred = RF.predict(X_test_scaled)
+Acc_RF = round(accuracy_score(RF_pred, y_test), 4)
+xgprec_RF, xgrec_RF, xgf_RF, support_RF = score(y_test, RF_pred)
+precision_RF, recall_RF, f1_RF = round(xgprec_RF[0], 4), round(xgrec_RF[0],4), round(xgf_RF[0],4)
+scores_RF = pd.DataFrame({
+    'Metric': ['Accuracy', 'Precision', 'Recall', 'F1'],
+    'Score': [Acc_RF, precision_RF, recall_RF, f1_RF]})
+scores_RF
+    
+y_scores_RF = RF.predict_proba(X_test_scaled)
+auc_RF = roc_curve_plot(y_test, y_scores_RF, 'Random Forest')
+    
+feat_importances_RF = pd.Series(RF.feature_importances_, index=X.columns)
+feat_importances_RF.nlargest(8).plot(kind='barh', title = 'Variable Importance for Random Forest', figsize=[5,3])
 ```
 </details>
 <br/>
@@ -292,7 +317,7 @@ y_scores_XGB = XGB.predict_proba(X_test_scaled)
 auc_XGB = roc_curve_plot(y_test, y_scores_XGB, 'Gradient Boosted Decision Tree')
     
 feat_importances_XGB = pd.Series(XGB.feature_importances_, index=X.columns)
-feat_importances_XGB.plot(kind='barh', title = 'Variable Importance for Gradient Boosted Tree', figsize=[7,5])
+feat_importances_XGB.plot(kind='barh', title = 'Variable Importance for Gradient Boosted Tree', figsize=[5,3])
 ```
 </details>
 <br/>
