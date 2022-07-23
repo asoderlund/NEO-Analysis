@@ -347,7 +347,7 @@ feat_importances_XGB.plot(kind='barh', title = 'Variable Importance for Gradient
 Overall, it is clear that both Random Forest classification and Gradient Boosted classification outperformed the Decision Tree and K Nearest Neighbors. I was very impressed with how accurate both the Random Forest and Gradient Boosted models were. They both had very high AUC, accuracy, and recall scores. As I've mentioned, recall is especially important in this case. Decision makers using these models would need to decide if the slight increase in recall for the Gradient Boosted model over the Random Forest model is worth sacrificing a little bit of accuracy and AUC. However, I believe either model would be a good choice.
 
 ![](./images/FinalTable.png)
-
+ 
 _Table 7_
 
 The variable importance plots revealed that the diameter of an asteroid is the main predictor of its danger. This is inutitive, but it is not obvious from the univariate and bivariate analyses. The importance plots also show that the distance from the earth (*miss_distance*) is also very important, although we learned from the bivariate analysis that the asteroids that are further away are actually more dangerous than the ones closer to earth. We also see from the variable importance plots that the year the asteroid was discovered does impact its hazard classification, possibly due to changing technology at NASA. 
